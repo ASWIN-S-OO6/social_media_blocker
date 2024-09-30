@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        google()           // Add Google's Maven repository
+        mavenCentral()     // Add Maven Central repository
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2' // Update Gradle version to match your project
+        classpath 'com.google.gms:google-services:4.4.2' // Firebase/Google Services classpath
+    }
+}
+
+allprojects {
+    repositories {
+        google()           // Add Google's Maven repository
+        mavenCentral()     // Add Maven Central repository
+    }
+}
+
+// Configure project build directories
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+// Clean task
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
